@@ -1,0 +1,172 @@
+﻿@using Microsoft.Extensions.Configuration
+@using Microsoft.AspNetCore.Http;
+
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IConfiguration Configuration
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>@ViewData["Title"]</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/img/favicon.png" rel="icon">
+    <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/lib/fontawesome-free/css/all.min.css">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/lib/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/lib/quill/quill.snow.css" rel="stylesheet">
+    <link href="~/lib/quill/quill.bubble.css" rel="stylesheet">
+    <link href="~/lib/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/lib/simple-datatables/style.css" rel="stylesheet">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/lib/toastr/toastr.min.css">
+    <!-- Template Main CSS File -->
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/site.css" rel="stylesheet">
+    <link href="~/lib/tree-input/style.css" rel="stylesheet" />
+
+    <!-- =======================================================
+    * Template Name: NiceAdmin
+    * Updated: May 30 2023 with Bootstrap v5.3.0
+    * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+    <header id="header" class="header fixed-top d-flex align-items-center">
+
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="/" class="logo d-flex align-items-center">
+                <img src="~/img/logo.png" alt="">
+                <span class="d-none d-lg-block">Quản lý sản phẩm</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div><!-- End Logo -->
+
+        <div class="search-bar">
+            <form class="search-form d-flex align-items-center" method="POST" action="#">
+                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+            </form>
+        </div><!-- End Search Bar -->
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+                <li class="nav-item dropdown pe-3">
+
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <img src="~/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">Administrator</span>
+                    </a><!-- End Profile Iamge Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>Admin</h6>
+                            <span>administrator</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/User/Logout">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+
+            </ul>
+        </nav><!-- End Icons Navigation -->
+    </header>
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link " href="/">
+                    <i class="bi bi-grid"></i>
+                    <span>Trang chủ</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/User">
+                    <i class="bi bi-person"></i>
+                    <span>Người dùng</span>
+                </a>
+            </li>                                       
+        </ul>
+
+    </aside><!-- End Sidebar-->
+
+    <main id="main" class="main">
+        @RenderBody()
+
+
+
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/lib/apexcharts/apexcharts.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/chart.js/chart.umd.js"></script>
+    <script src="~/lib/echarts/echarts.min.js"></script>
+    <script src="~/lib/quill/quill.min.js"></script>
+    <script src="~/lib/simple-datatables/simple-datatables.js"></script>
+    <script src="~/lib/tinymce/tinymce.min.js"></script>
+    <script src="~/lib/moment/moment.min.js"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Template Main JS File -->
+    <script src="~/js/main.js"></script>
+
+    <script src="~/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/lib/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/lib/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/lib/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/lib/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/lib/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/lib/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/lib/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Toastr -->
+    <script src="~/lib/toastr/toastr.min.js"></script>
+    <script src="~/js/support.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/lib/treeview/sample.js"></script>
+
+    <script src="~/lib/treeview/dx.all.js"></script>
+    <script src="~/lib/tree-input/combotreeplugin.js"></script>
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
