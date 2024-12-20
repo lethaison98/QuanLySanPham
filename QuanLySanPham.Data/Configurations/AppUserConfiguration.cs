@@ -13,7 +13,7 @@ namespace QuanLySanPham.Data.Configurations
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<AppUser> builder)
         {
             builder.ToTable("AppUser");
-          
+          //còn nhiều thuộc tính nữa
         }
     }
 }

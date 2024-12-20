@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = Model.UserId == Guid.Empty ? "Thêm Người Dùng" : "Cập Nhật Người Dùng";
+}
+
+<h2>@ViewData["Title"]</h2>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<form asp-action="CreateOrUpdate" method="post">
+    <div class="form-group">
+        <label asp-for="UserId" class="form-label">User ID</label>
+        <input asp-for="UserId" class="form-control" placeholder="Nhập User ID" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FullName" class="form-label">Họ và tên</label>
+        <input asp-for="FullName" class="form-control" placeholder="Nhập họ và tên" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UserName" class="form-label">Tên đăng nhập</label>
+        <input asp-for="UserName" class="form-control" placeholder="Nhập tên đăng nhập" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email" class="form-label">Email</label>
+        <input asp-for="Email" class="form-control" placeholder="Nhập email" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="form-label">Số điện thoại</label>
+        <input asp-for="PhoneNumber" class="form-control" placeholder="Nhập số điện thoại" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DsRole" class="form-label">Vai trò</label>
+        <input asp-for="DsRole" class="form-control" placeholder="Nhập vai trò" />
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block">Lưu</button>
+</form>
+<style>
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label.form-label {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    input.form-control {
+        width: 100%;
+        padding: 12px;
+        margin-top: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        font-size: 1rem;
+    }
+
+        input.form-control:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+    button.btn-primary {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        font-size: 1.2rem;
+        padding: 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+    }
+
+        button.btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    button.btn-block {
+        width: 100%;
+    }
+
+    body {
+        padding: 20px;
+        background-color: #f2f2f2;
+    }
+</style>

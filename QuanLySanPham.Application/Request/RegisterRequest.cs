@@ -22,6 +22,16 @@ namespace QuanLySanPham.Application.Request
         public string NormalizedName { get; set; }
         public string MoTa { get; set; }
     }
+
+//    3. UserRequest
+//Lớp này được sử dụng để thêm mới hoặc cập nhật thông tin người dùng trong hệ thống.
+//UserId: ID của người dùng, sử dụng kiểu Guid để đảm bảo mỗi người dùng có một mã duy nhất.
+//FullName: Tên đầy đủ của người dùng.
+//UserName: Tên người dùng (dùng để đăng nhập).
+//Password: Mật khẩu người dùng(có thể là mật khẩu mới hoặc mật khẩu cũ nếu người dùng đang được cập nhật).
+//Email: Địa chỉ email của người dùng.
+//PhoneNumber: Số điện thoại của người dùng.
+//DsRole: Danh sách các vai trò mà người dùng này có, ví dụ như Admin, User, Manager...Một người có thể có nhiều vai trò trong hệ thống.
     public class UserRequest
     {
         public Guid UserId { get; set; }

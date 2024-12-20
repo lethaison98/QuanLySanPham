@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -8,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace QuanLySanPham.Application.Common
 {
+        //    Quản lý user
+        //Liên quan gián tiếp:
+        //Các phương thức như CreateMD5 có thể sử dụng để mã hóa mật khẩu người dùng trong cơ sở dữ liệu.
+        //RemoveSign4VietnameseString và RemoveSpecial có thể được sử dụng để xử lý tên người dùng
+        //ví dụ như khi tạo tên người dùng không có dấu hoặc ký tự đặc biệt.
     public class CommonUtils
     {
         public static string GetIpAddress()
