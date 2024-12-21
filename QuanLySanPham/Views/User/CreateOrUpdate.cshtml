@@ -16,35 +16,35 @@
         @TempData["SuccessMessage"]
     </div>
 }
-
+@model QuanLySanPham.Application.Request.UserRequest
 <form asp-action="CreateOrUpdate" method="post">
     <div class="form-group">
-        <label asp-for="UserId" class="form-label">User ID</label>
+        <label for="UserId" class="form-label">User ID</label>
         <input asp-for="UserId" class="form-control" placeholder="Nhập User ID" />
     </div>
 
     <div class="form-group">
-        <label asp-for="FullName" class="form-label">Họ và tên</label>
+        <label for="FullName" class="form-label">Họ và tên</label>
         <input asp-for="FullName" class="form-control" placeholder="Nhập họ và tên" />
     </div>
 
     <div class="form-group">
-        <label asp-for="UserName" class="form-label">Tên đăng nhập</label>
+        <label for="UserName" class="form-label">Tên đăng nhập</label>
         <input asp-for="UserName" class="form-control" placeholder="Nhập tên đăng nhập" />
     </div>
 
     <div class="form-group">
-        <label asp-for="Email" class="form-label">Email</label>
+        <label for="Email" class="form-label">Email</label>
         <input asp-for="Email" class="form-control" placeholder="Nhập email" />
     </div>
 
     <div class="form-group">
-        <label asp-for="PhoneNumber" class="form-label">Số điện thoại</label>
+        <label for="PhoneNumber" class="form-label">Số điện thoại</label>
         <input asp-for="PhoneNumber" class="form-control" placeholder="Nhập số điện thoại" />
     </div>
 
     <div class="form-group">
-        <label asp-for="DsRole" class="form-label">Vai trò</label>
+        <label for="DsRole" class="form-label">Vai trò</label>
         <input asp-for="DsRole" class="form-control" placeholder="Nhập vai trò" />
     </div>
 
