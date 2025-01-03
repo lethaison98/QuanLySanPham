@@ -34,6 +34,9 @@ namespace QuanLySanPham.Application.Request
 //DsRole: Danh sách các vai trò mà người dùng này có, ví dụ như Admin, User, Manager...Một người có thể có nhiều vai trò trong hệ thống.
     public class UserRequest
     {
+
+        //private Guid _userId = Guid.NewGuid(); // Tạo mới Guid ngẫu nhiên
+
         public Guid UserId { get; set; }
         public string FullName { get; set; }
         public string UserName { get; set; }
