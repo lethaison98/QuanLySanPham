@@ -1,6 +1,11 @@
+<<<<<<< HEAD
+﻿
+using QuanLySanPham.Application.Interfaces;
+=======
 ﻿//Các lớp này thường được sử dụng trong các ứng dụng API để chuẩn hóa cách trả về kết quả cho client (frontend)
 //giúp frontend dễ dàng xử lý và hiển thị thông tin phù hợp (thành công hoặc lỗi) cho người dùng.
 //trả về kết quả thành công hay thất bại trong các hàm thêm, sửa, xoá....
+>>>>>>> 548c7868a569838c13e7124694560102abd54878
 
 namespace QuanLySanPham.Application.ViewModel
 {
@@ -50,7 +55,7 @@ namespace QuanLySanPham.Application.ViewModel
         /// The real data return by the API
         /// </summary>
         public T Data { get; set; }
-
+        public bool IsSuccessed { get; set; }
         public virtual ApiResult<T> OnError(string errorMessage)
         {
             IsSuccess = false;
@@ -65,6 +70,10 @@ namespace QuanLySanPham.Application.ViewModel
             return this;
         }
 
+        public static implicit operator ApiResult<T>(IQuanLyLoaiSanPham.ApiResult<bool> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class ApiErrorResult<T> : ApiResult<T>
