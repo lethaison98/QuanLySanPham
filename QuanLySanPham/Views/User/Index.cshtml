@@ -1,4 +1,83 @@
-﻿@{
+﻿
+@using QuanLySanPham.Application.ViewModel
+@model PageViewModel<UserViewModel>
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Quản lý người dùng";
 }
+
+<h2 class="mt-4 mb-4 text-center">Danh Sách Người Dùng</h2>
+
+<!-- Nút Thêm Người Dùng -->
+<div class="mb-4 d-flex justify-content-end">
+    <a href="@Url.Action("CreateOrUpdate", "User")" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Thêm Người Dùng
+    </a>
+</div>
+
+<!-- Form tìm kiếm -->
+<form method="get" action="@Url.Action("GetAllPaging", "User")" class="mb-4 d-flex justify-content-center">
+    <div class="input-group w-50">
+        <input type="text" name="keyword" class="form-control" placeholder="Nhập từ khóa tìm kiếm..." value="@Context.Request.Query["keyword"]" />
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+</form>
+
+<!-- Bảng dữ liệu -->
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>Họ và tên</th>
+                <th>Tên đăng nhập</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Vai trò</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Items.Any())
+            {
+                @foreach (var user in Model.Items)
+                {
+                    <tr class="text-center">
+                        <td>@user.FullName</td>
+                        <td>@user.UserName</td>
+                        <td>@user.Email</td>
+                        <td>@user.PhoneNumber</td>
+                        <td>@string.Join(", ", user.DsRole)</td>
+                        <td>
+                            <a href="@Url.Action("CreateOrUpdate", "User", new { id = user.UserId })" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil-square"></i> Sửa
+                            </a>
+                            <a href="@Url.Action("Delete", "User", new { id = user.UserId })" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?');">
+                                <i class="bi bi-trash"></i> Xóa
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="text-center text-muted">Không có người dùng nào được tìm thấy.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Phân trang -->
+<nav aria-label="Pagination">
+    <ul class="pagination justify-content-center">
+        @for (var i = 1; i <= Math.Ceiling((double)Model.TotalRecord / Model.PageSize); i++)
+        {
+            <li class="page-item @(i == (Context.Request.Query["pageNumber"].Any() ? int.Parse(Context.Request.Query["pageNumber"]) : 1) ? "active" : "")">
+                <a class="page-link" href="@Url.Action("GetAllPaging", "User", new { pageNumber = i, pageSize = Model.PageSize, keyword = Context.Request.Query["keyword"] })">@i</a>
+            </li>
+        }
+    </ul>
+</nav>
+

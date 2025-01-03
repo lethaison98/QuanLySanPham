@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuanLySanPham.Application.ViewModel
 {
+    //model của quản lý user
     public class UserViewModel
     {
         public Guid UserId { get; set; }

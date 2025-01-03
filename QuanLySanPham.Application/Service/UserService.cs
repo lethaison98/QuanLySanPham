@@ -36,9 +36,14 @@ namespace QuanLySanPham.Application.Service
             _config = config;
             _accessor = HttpContextAccessor;
         }
+        //thêm mới hoặc cập nhật thông tin user
         public async Task<ApiResult<bool>> InsertUpdate(UserRequest request)
         {
-            if(request.UserId == new Guid())
+            if (string.IsNullOrEmpty(request.UserName))  
+            {
+                return new ApiErrorResult<bool>("Tên đăng nhập không được để trống");
+            }
+            if (request.UserId == new Guid())
             {
                 var usercheck = _userManager.FindByNameAsync(request.UserName).Result;
                 if (usercheck != null)
@@ -67,7 +72,7 @@ namespace QuanLySanPham.Application.Service
             else
             {
                 var users = await _userManager.FindByIdAsync(request.UserId.ToString());
-                if(users.UserName != request.UserName)
+                if(users != null && users.UserName != request.UserName)
                 {
                     var usercheck = _userManager.FindByNameAsync(request.UserName).Result;
                     if (usercheck != null)
@@ -75,7 +80,7 @@ namespace QuanLySanPham.Application.Service
                         return new ApiErrorResult<bool>("Tài khoản đã tồn tại");
                     }
                 }
-                if(!String.IsNullOrEmpty(request.Email) && users.Email != request.Email)
+                if(users != null && !String.IsNullOrEmpty(request.Email) && users.Email != request.Email)
                 {
                     var usercheck = await _userManager.FindByEmailAsync(request.Email);
                     if (usercheck != null)
@@ -83,24 +88,28 @@ namespace QuanLySanPham.Application.Service
                         return new ApiErrorResult<bool>("Email đã tồn tại");
                     }
                 }
-
-                users.Email = request.Email;
-                users.FullName = request.FullName;
-                users.UserName = request.UserName;
-                users.PhoneNumber = request.PhoneNumber;
-                var result = await _userManager.UpdateAsync(users);
-                if (result.Succeeded)
+                if (users != null)
                 {
-                    var currentRoles = await _userManager.GetRolesAsync(users);
-                    var u = await _userManager.FindByNameAsync(request.UserName);
-                    await _userManager.RemoveFromRolesAsync(users, currentRoles);
-                    await _userManager.AddToRolesAsync(u, request.DsRole);
-                    return new ApiSuccessResult<bool>();
+                    users.Email = request.Email;
+                    users.FullName = request.FullName;
+                    users.UserName = request.UserName;
+                    users.PhoneNumber = request.PhoneNumber;
+                    var result = await _userManager.UpdateAsync(users);
+                    if (result.Succeeded)
+                    {
+                        var currentRoles = await _userManager.GetRolesAsync(users);
+                        var u = await _userManager.FindByNameAsync(request.UserName);
+                        await _userManager.RemoveFromRolesAsync(users, currentRoles);
+                        await _userManager.AddToRolesAsync(u, request.DsRole);
+                        return new ApiSuccessResult<bool>();
+                    }
                 }
             }
 
             return new ApiErrorResult<bool>("Đăng ký không thành công");
         }
+
+        //đăng nhập
         public async Task<ApiResult<UserLoginViewModel>> Authenticate(LoginRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.Username);
@@ -134,6 +143,8 @@ namespace QuanLySanPham.Application.Service
             result.Roles = string.Join(';', roles);
             return new ApiSuccessResult<UserLoginViewModel>(result);
         }
+
+        //đăng ký
         public async Task<ApiResult<bool>> Register(RegisterRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
@@ -203,6 +214,7 @@ namespace QuanLySanPham.Application.Service
                 return new ApiErrorResult<bool>("Cập nhật không thành công");
             }
         }
+        //Lấy danh sách người dùng với phân trang (hiển thị toàn bộ danh sách người dùng)
         public async Task<ApiResult<PageViewModel<UserViewModel>>> GetAllPaging(string keyword, int pageIndex, int pageSize)
         {
             var query = from a in _context.AppUser
@@ -239,6 +251,55 @@ namespace QuanLySanPham.Application.Service
             };
             return new ApiSuccessResult<PageViewModel<UserViewModel>>() { Data = result };
         }
+
+        //lấy thông tin role cho từng user
+        public async Task<List<string>> GetRolesForUser(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null) return new List<string>();
+
+            var roles = await _userManager.GetRolesAsync(user);
+            return roles.ToList();
+        }
+
+        //public async Task<ApiResult<PageViewModel<UserViewModel>>> GetRolesForUser(string keyword, int pageIndex, int pageSize)
+        //{
+        //    var query = _context.AppUser.AsQueryable();
+
+        //    if (!string.IsNullOrEmpty(keyword))
+        //    {
+        //        query = query.Where(u => u.UserName.Contains(keyword) || u.FullName.Contains(keyword));
+        //    }
+
+        //    var users = query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        //    var listItem = new List<UserViewModel>();
+
+        //    foreach (var user in users)
+        //    {
+        //        var roles = await _userManager.GetRolesAsync(user);
+        //        listItem.Add(new UserViewModel
+        //        {
+        //            UserId = user.Id,
+        //            FullName = user.FullName,
+        //            UserName = user.UserName,
+        //            PhoneNumber = user.PhoneNumber,
+        //            Email = user.Email,
+        //            DsRole = roles.ToList()
+        //        });
+        //    }
+
+        //    var result = new PageViewModel<UserViewModel>
+        //    {
+        //        Items = listItem,
+        //        PageIndex = pageIndex,
+        //        PageSize = pageSize,
+        //        TotalRecord = query.Count()
+        //    };
+
+        //    return new ApiSuccessResult<PageViewModel<UserViewModel>>(result);
+        //}
+
+        //Lấy thông tin người dùng theo ID để cập nhật, sửa
         public async Task<ApiResult<UserViewModel>> GetById(Guid idTaiKhoan)
         {
             var result = new UserViewModel();
@@ -263,6 +324,8 @@ namespace QuanLySanPham.Application.Service
                 return new ApiErrorResult<UserViewModel>("Không tìm thấy dữ liệu");
             }
         }
+
+        //thay đổi mật khẩu (ChangePassByUser cho phép người dùng thay đổi mật khẩu của mình-> liên quan đến quản lý user)
         public async Task<ApiResult<bool>> ChangePassByUser(ChangePasswordRequest request)
         {
             try
@@ -292,6 +355,7 @@ namespace QuanLySanPham.Application.Service
             }
 
         }
+        //Đặt lại mật khẩu
         public async Task<ApiResult<bool>> ResetPassword(ChangePasswordRequest request)
         {
             try
