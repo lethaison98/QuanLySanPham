@@ -1,0 +1,73 @@
+﻿@model QuanLySanPham.Application.Request.RegisterRequest
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<span>
+    <i class="bi bi-person-plus"></i>
+    <span class="account-btn" onclick="openRegister()">Register</span>
+</span>
+
+<div id="overlay" class="overlay" onclick="closeRegister()"></div>
+
+<div id="registerPopup" class="register-popup">
+    <span class="close-btn" onclick="closeRegister()">×</span>
+    <h2>Register</h2>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        <label>Full Name</label>
+        @Html.TextBoxFor(m => m.FullName, new { placeholder = "Enter your full name", @class = "form-control" })
+
+        <label>Don Vi</label>
+        @Html.TextBoxFor(m => m.DonVi, new { placeholder = "Enter your unit", @class = "form-control" })
+
+        <label>Date of Birth</label>
+        @Html.TextBoxFor(m => m.NgaySinh, new { type = "date", @class = "form-control" })
+
+        <label>Username</label>
+        @Html.TextBoxFor(m => m.UserName, new { placeholder = "Enter your username", @class = "form-control" })
+
+        <label>Password</label>
+        @Html.PasswordFor(m => m.Password, new { placeholder = "Enter your password", @class = "form-control" })
+
+        <label>Email</label>
+        @Html.TextBoxFor(m => m.Email, new { placeholder = "Enter your email", @class = "form-control" })
+
+        <label>Phone Number</label>
+        @Html.TextBoxFor(m => m.PhoneNumber, new { placeholder = "Enter your phone number", @class = "form-control" })
+
+        <input type="submit" value="REGISTER" class="btn btn-primary" />
+    }
+
+    <p style="text-align: center; margin-top: 20px;">
+        Already have an account? <a href="#" style="color: black;" onclick="openLogin()">Login Here</a>
+    </p>
+</div>
+
+<script>
+    function openRegister() {
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('registerPopup').style.display = 'block';
+    }
+
+    function closeRegister() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('registerPopup').style.display = 'none';
+    }
+</script>
+<script src="~/js/controller/action.js"></script>

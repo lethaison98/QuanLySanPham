@@ -1,0 +1,54 @@
+﻿@model QuanLySanPham.Application.Request.LoginRequest;
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<span>
+    <i class="bi bi-box-arrow-in-right"></i>
+    <span class="account-btn" onclick="openLogin()">Login</span>
+</span>
+
+<div id="overlay" class="overlay" onclick="closeLogin()"></div>
+
+<div id="loginPopup" class="login-popup">
+    <span class="close-btn" onclick="closeLogin()">×</span>
+    <h2>Login</h2>
+
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+    {
+        <label>Username</label>
+        @Html.TextBoxFor(m => m.Username, new { placeholder = "Enter your username" })
+
+        <label>Password</label>
+        @Html.PasswordFor(m => m.Password, new { placeholder = "Enter your password" })
+
+        @Html.CheckBoxFor(m => m.RememberMe)
+        <label for="rememberMe">Remember Me</label>
+
+        <a href="#" style="float: right; color: gray;">Forgot Password?</a>
+
+        <br />
+
+        <br />
+
+        @ViewBag.Error
+
+        <input type="submit" value="LOG IN" />
+    }
+    <p style="text-align: center; margin-top: 20px;">
+        You don't have an account yet? <a href="#" style="color: black;">Register Now</a>
+    </p>
+</div>
+
+<script>
+    function openLogin() {
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('loginPopup').style.display = 'block';
+    }
+
+    function closeLogin() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('loginPopup').style.display = 'none';
+    }
+</script>
