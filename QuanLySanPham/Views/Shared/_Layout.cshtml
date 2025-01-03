@@ -5,12 +5,11 @@
 @inject IConfiguration Configuration
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
     <title>@ViewData["Title"]</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
@@ -22,6 +21,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/lib/fontawesome-free/css/all.min.css">
 
@@ -39,19 +39,10 @@
     <link href="~/css/style.css" rel="stylesheet">
     <link href="~/css/site.css" rel="stylesheet">
     <link href="~/lib/tree-input/style.css" rel="stylesheet" />
-
-    <!-- =======================================================
-    * Template Name: NiceAdmin
-    * Updated: May 30 2023 with Bootstrap v5.3.0
-    * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-    * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
-    ======================================================== -->
 </head>
 
 <body>
     <header id="header" class="header fixed-top d-flex align-items-center">
-
         <div class="d-flex align-items-center justify-content-between">
             <a href="/" class="logo d-flex align-items-center">
                 <img src="~/img/logo.png" alt="">
@@ -60,15 +51,32 @@
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
 
-        <div class="search-bar">
-            <form class="search-form d-flex align-items-center" method="POST" action="#">
-                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-            </form>
-        </div><!-- End Search Bar -->
-
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
+<<<<<<< HEAD
+                <li class="nav-item dropdown pe-3">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <img src="~/img/profile-img.jpg" alt="Hình đại diện" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">Quản trị viên</span>
+                    </a><!-- End Profile Image Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>Quản trị viên</h6>
+                            <span>quản trị viên</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/User/Logout">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </li>
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+=======
                 @{
                     var username = Context.Session.GetString("Username");
                 }
@@ -112,13 +120,13 @@
 
                 }
 
+>>>>>>> 548c7868a569838c13e7124694560102abd54878
             </ul>
         </nav><!-- End Icons Navigation -->
     </header>
+
     <aside id="sidebar" class="sidebar">
-
         <ul class="sidebar-nav" id="sidebar-nav">
-
             <li class="nav-item">
                 <a class="nav-link " href="/">
                     <i class="bi bi-grid"></i>
@@ -126,24 +134,49 @@
                 </a>
             </li>
             <li class="nav-item">
+<<<<<<< HEAD
+                <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+=======
                 <a class="nav-link collapsed" href="@Url.Action("GetAllPaging", "User")"> <!--Nó tạo một URL trỏ đến action GetAllPaging trong UserController -->
+>>>>>>> 548c7868a569838c13e7124694560102abd54878
                     <i class="bi bi-person"></i>
                     <span>Người dùng</span>
+                    <i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-            </li>                                       
+                <ul id="tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="@Url.Action("Index", "User")">
+                            <i class="bi bi-circle"></i><span>Danh sách người dùng</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Create", "User")">
+                            <i class="bi bi-circle"></i><span>Thêm người dùng</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-journal-text"></i><span>Quản lý loại sản phẩm</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="forms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="@Url.Action("Index", "QuanLyLoaiSanPham")">
+                            <i class="bi bi-circle"></i><span>Danh sách loại sản phẩm</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </li>
         </ul>
-
     </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
         @RenderBody()
-
-
-
     </main><!-- End #main -->
     <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
-    </footer><!-- End Footer -->
+    <footer id="footer" class="footer"></footer><!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -157,8 +190,8 @@
     <script src="~/lib/tinymce/tinymce.min.js"></script>
     <script src="~/lib/moment/moment.min.js"></script>
     <script src="~/lib/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
     <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+
     <!-- Template Main JS File -->
     <script src="~/js/main.js"></script>
 
@@ -171,12 +204,12 @@
     <script src="~/lib/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="~/lib/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="~/lib/datatables-buttons/js/buttons.colVis.min.js"></script>
+
     <!-- Toastr -->
     <script src="~/lib/toastr/toastr.min.js"></script>
     <script src="~/js/support.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/lib/treeview/sample.js"></script>
-
     <script src="~/lib/treeview/dx.all.js"></script>
     <script src="~/lib/tree-input/combotreeplugin.js"></script>
     <script src="~/lib/ckeditor/ckeditor.js"></script>

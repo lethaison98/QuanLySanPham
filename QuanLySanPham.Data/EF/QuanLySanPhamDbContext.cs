@@ -31,6 +31,7 @@ namespace QuanLySanPham.Data.EF
             modelBuilder.ApplyConfiguration(new DoanhNghiepConfiguration());
             modelBuilder.ApplyConfiguration(new FilesConfiguration());
             modelBuilder.ApplyConfiguration(new FileObjectConfiguration());
+            modelBuilder.ApplyConfiguration(new LoaiSanPhamConfiguration());
             //base.OnModelCreating(modelBuilder);
         }
         public DbSet<AppConfig> AppConfig { get; set; }
@@ -39,5 +40,6 @@ namespace QuanLySanPham.Data.EF
         public DbSet<Files> Files { get; set; }
         public DbSet<FileObject> FileObject { get; set; }
         public DbSet<DoanhNghiep> DoanhNghiep { get; set; }
+        public DbSet<LoaiSanPham> LoaiSanPham { get; set; }
     }
 }
