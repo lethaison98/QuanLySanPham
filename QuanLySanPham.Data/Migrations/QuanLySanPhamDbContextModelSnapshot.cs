@@ -376,35 +376,6 @@ namespace QuanLySanPham.Data.Migrations
                     b.ToTable("Files", (string)null);
                 });
 
-            modelBuilder.Entity("QuanLySanPham.Data.Entities.LoaiSanPham", b =>
-                {
-                    b.Property<int>("IdLoaiSanPham")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdLoaiSanPham"), 1L, 1);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("MoTa")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("NgayCapNhat")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("NgayTao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TenLoaiSanPham")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdLoaiSanPham");
-
-                    b.ToTable("LoaiSanPham", (string)null);
-                });
-
             modelBuilder.Entity("QuanLySanPham.Data.Entities.FileObject", b =>
                 {
                     b.HasOne("QuanLySanPham.Data.Entities.Files", "File")

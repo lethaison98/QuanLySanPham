@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace QuanLySanPham.Data.EF
 {
     public class QuanLySanPhamDbContext : IdentityDbContext<AppUser, AppRole, Guid>
@@ -23,6 +24,7 @@ namespace QuanLySanPham.Data.EF
             modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
             modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims");
             modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
+              modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
 
 
             modelBuilder.ApplyConfiguration(new AppConfigConfiguration());
@@ -31,15 +33,17 @@ namespace QuanLySanPham.Data.EF
             modelBuilder.ApplyConfiguration(new DoanhNghiepConfiguration());
             modelBuilder.ApplyConfiguration(new FilesConfiguration());
             modelBuilder.ApplyConfiguration(new FileObjectConfiguration());
-            modelBuilder.ApplyConfiguration(new LoaiSanPhamConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
             //base.OnModelCreating(modelBuilder);
         }
+        public DbSet<Product> Product { get; set; }
+
+        public DbSet<Product> Products { get; set; }
         public DbSet<AppConfig> AppConfig { get; set; }
         public DbSet<AppRole> AppRole { get; set; }
         public DbSet<AppUser> AppUser { get; set; }
         public DbSet<Files> Files { get; set; }
         public DbSet<FileObject> FileObject { get; set; }
         public DbSet<DoanhNghiep> DoanhNghiep { get; set; }
-        public DbSet<LoaiSanPham> LoaiSanPham { get; set; }
     }
 }

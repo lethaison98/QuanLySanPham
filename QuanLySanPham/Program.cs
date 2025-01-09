@@ -11,14 +11,6 @@ using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Them dich vu session
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
-
 // Add services to the container.
 builder.Services.AddDbContext<QuanLySanPhamDbContext>
 (options =>
@@ -115,6 +107,7 @@ builder.Services.AddScoped<IDoanhNghiepService, DoanhNghiepService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IFileObjectService, FileObjectService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 
@@ -124,7 +117,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication();
 app.UseRouting();
-app.UseSession();
 app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader()
