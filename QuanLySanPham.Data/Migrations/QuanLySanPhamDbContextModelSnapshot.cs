@@ -384,6 +384,12 @@ namespace QuanLySanPham.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdLoaiSanPham"), 1L, 1);
 
+                    b.Property<string>("IdNguoiCapNhat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdNguoiTao")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -393,8 +399,14 @@ namespace QuanLySanPham.Data.Migrations
                     b.Property<DateTime?>("NgayCapNhat")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("NgayTao")
+                    b.Property<DateTime?>("NgayTao")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("NguoiCapNhat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NguoiTao")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TenLoaiSanPham")
                         .IsRequired()
@@ -403,6 +415,58 @@ namespace QuanLySanPham.Data.Migrations
                     b.HasKey("IdLoaiSanPham");
 
                     b.ToTable("LoaiSanPham", (string)null);
+                });
+
+            modelBuilder.Entity("QuanLySanPham.Data.Entities.Product", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdNguoiCapNhat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdNguoiTao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LoaiSanPhamId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("NgayCapNhat")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NguoiCapNhat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NguoiTao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId");
+
+                    b.HasIndex("LoaiSanPhamId");
+
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("QuanLySanPham.Data.Entities.FileObject", b =>
@@ -416,9 +480,25 @@ namespace QuanLySanPham.Data.Migrations
                     b.Navigation("File");
                 });
 
+            modelBuilder.Entity("QuanLySanPham.Data.Entities.Product", b =>
+                {
+                    b.HasOne("QuanLySanPham.Data.Entities.LoaiSanPham", "LoaiSanPham")
+                        .WithMany("Products")
+                        .HasForeignKey("LoaiSanPhamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LoaiSanPham");
+                });
+
             modelBuilder.Entity("QuanLySanPham.Data.Entities.Files", b =>
                 {
                     b.Navigation("FileObject");
+                });
+
+            modelBuilder.Entity("QuanLySanPham.Data.Entities.LoaiSanPham", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

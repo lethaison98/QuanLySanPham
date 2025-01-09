@@ -1,5 +1,6 @@
 ﻿using QuanLySanPham.Application.Request;
 using QuanLySanPham.Application.ViewModel;
+using QuanLySanPham.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace QuanLySanPham.Application.Interfaces
         public Task<List<string>> GetRolesForUser(string userName);
 
         public Task<ApiResult<UserViewModel>> GetById(Guid idTaiKhoan);
+        public Task<List<AppUser>> GetAllUsersAsync();
         public Task<ApiResult<bool>> ChangePassByUser(ChangePasswordRequest rq);
         public Task<ApiResult<bool>> ResetPassword(ChangePasswordRequest rq);
     }

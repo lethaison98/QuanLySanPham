@@ -9,7 +9,8 @@ namespace QuanLySanPham.Data.Entities
 {
     public class AppUser: IdentityUser<Guid>
     {
-        public string FullName { get; set; }      
+        //còn nhiều thuộc tính nữa
+        public string FullName { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
-    
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QuanLySanPham.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,13 @@ namespace QuanLySanPham.Data.Configurations
 {
     internal class LoaiSanPhamConfiguration : IEntityTypeConfiguration<LoaiSanPham>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<LoaiSanPham> builder)
+        public void Configure(EntityTypeBuilder<LoaiSanPham> builder)
         {
-            builder.ToTable("LoaiSanPham");
-            builder.HasKey(x => x.IdLoaiSanPham);
-            builder.Property(x => x.TenLoaiSanPham).IsRequired();
+            builder.ToTable("LoaiSanPham"); 
+
+            builder.HasKey(x => x.IdLoaiSanPham); 
+
+            builder.Property(x => x.TenLoaiSanPham).IsRequired(); 
 
         }
     }

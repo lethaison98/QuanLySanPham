@@ -45,7 +45,7 @@ namespace QuanLySanPham.Controllers
         //đăng ký
         [HttpPost("Register")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromForm] RegisterRequest request)
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -56,27 +56,6 @@ namespace QuanLySanPham.Controllers
                 return BadRequest(result);
             }
             return Ok(result);
-
-
-            //if (!ModelState.IsValid)
-            //{
-            //    // Trả về danh sách lỗi cho client
-            //    var errors = ModelState.Values.SelectMany(v => v.Errors)
-            //                                  .Select(e => e.ErrorMessage).ToList();
-
-            //    return BadRequest(new { IsSuccess = false, Message = "Validation failed", Errors = errors });
-            //}
-
-            //var result = await _userService.Register(request);
-
-            //if (!result.IsSuccess)
-            //{
-            //    // Trả về lỗi nếu không thành công
-            //    return BadRequest(new { IsSuccess = false, Message = result.Message, Errors = result.Errors });
-            //}
-
-            //// Trả về thành công
-            //return Ok(new { IsSuccess = true, Message = "Registration successful." });
         }
         
         //thêm quyền

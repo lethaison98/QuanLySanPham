@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using QuanLySanPham.Application.Interfaces;
 using QuanLySanPham.Application.Request;
@@ -87,6 +88,32 @@ namespace QuanLySanPham.Controllers
         {
             var result = await _userService.GetById(new Guid(idTaiKhoan));
             return Ok(result);
+        }
+
+        [HttpGet]
+        public IActionResult ChartsUser()
+        {
+            return View();  
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChartsData()
+        {
+            var users = await _userService.GetAllUsersAsync();
+
+            var totalUserCount = users.Count;
+
+            var userCountsByYear = users
+                .GroupBy(u => u.CreatedDate.Year)
+                .Select(g => new
+                {
+                    Year = g.Key,
+                    Count = g.Count()
+                })
+                .OrderBy(g => g.Year)
+                .ToList();
+
+            return Json(new { userCountsByYear, totalUserCount });
         }
 
     }

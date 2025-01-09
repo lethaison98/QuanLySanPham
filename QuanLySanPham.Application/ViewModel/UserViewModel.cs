@@ -14,6 +14,7 @@ namespace QuanLySanPham.Application.ViewModel
         public string UserName { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public DateTime CreatedDate { get; set; }
         public List<String> DsRole { get; set; }
     }
 }

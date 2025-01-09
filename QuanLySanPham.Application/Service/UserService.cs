@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using QuanLySanPham.Application.Interfaces;
@@ -36,6 +37,13 @@ namespace QuanLySanPham.Application.Service
             _config = config;
             _accessor = HttpContextAccessor;
         }
+
+        public async Task<List<AppUser>> GetAllUsersAsync()
+        {
+            return await _context.AppUser.ToListAsync(); 
+        }
+
+
         //thêm mới hoặc cập nhật thông tin user
         public async Task<ApiResult<bool>> InsertUpdate(UserRequest request)
         {
@@ -72,7 +80,7 @@ namespace QuanLySanPham.Application.Service
             else
             {
                 var users = await _userManager.FindByIdAsync(request.UserId.ToString());
-                if(users != null && users.UserName != request.UserName)
+                if(users.UserName != request.UserName)
                 {
                     var usercheck = _userManager.FindByNameAsync(request.UserName).Result;
                     if (usercheck != null)
@@ -80,7 +88,7 @@ namespace QuanLySanPham.Application.Service
                         return new ApiErrorResult<bool>("Tài khoản đã tồn tại");
                     }
                 }
-                if(users != null && !String.IsNullOrEmpty(request.Email) && users.Email != request.Email)
+                if(!String.IsNullOrEmpty(request.Email) && users.Email != request.Email)
                 {
                     var usercheck = await _userManager.FindByEmailAsync(request.Email);
                     if (usercheck != null)
@@ -88,21 +96,19 @@ namespace QuanLySanPham.Application.Service
                         return new ApiErrorResult<bool>("Email đã tồn tại");
                     }
                 }
-                if (users != null)
+
+                users.Email = request.Email;
+                users.FullName = request.FullName;
+                users.UserName = request.UserName;
+                users.PhoneNumber = request.PhoneNumber;
+                var result = await _userManager.UpdateAsync(users);
+                if (result.Succeeded)
                 {
-                    users.Email = request.Email;
-                    users.FullName = request.FullName;
-                    users.UserName = request.UserName;
-                    users.PhoneNumber = request.PhoneNumber;
-                    var result = await _userManager.UpdateAsync(users);
-                    if (result.Succeeded)
-                    {
-                        var currentRoles = await _userManager.GetRolesAsync(users);
-                        var u = await _userManager.FindByNameAsync(request.UserName);
-                        await _userManager.RemoveFromRolesAsync(users, currentRoles);
-                        await _userManager.AddToRolesAsync(u, request.DsRole);
-                        return new ApiSuccessResult<bool>();
-                    }
+                    var currentRoles = await _userManager.GetRolesAsync(users);
+                    var u = await _userManager.FindByNameAsync(request.UserName);
+                    await _userManager.RemoveFromRolesAsync(users, currentRoles);
+                    await _userManager.AddToRolesAsync(u, request.DsRole);
+                    return new ApiSuccessResult<bool>();
                 }
             }
 
@@ -355,6 +361,8 @@ namespace QuanLySanPham.Application.Service
             }
 
         }
+
+
         //Đặt lại mật khẩu
         public async Task<ApiResult<bool>> ResetPassword(ChangePasswordRequest request)
         {
