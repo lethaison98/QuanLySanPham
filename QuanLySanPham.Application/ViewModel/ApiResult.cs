@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-﻿
 using QuanLySanPham.Application.Interfaces;
-=======
-﻿//Các lớp này thường được sử dụng trong các ứng dụng API để chuẩn hóa cách trả về kết quả cho client (frontend)
-//giúp frontend dễ dàng xử lý và hiển thị thông tin phù hợp (thành công hoặc lỗi) cho người dùng.
-//trả về kết quả thành công hay thất bại trong các hàm thêm, sửa, xoá....
->>>>>>> 548c7868a569838c13e7124694560102abd54878
 
 namespace QuanLySanPham.Application.ViewModel
 {

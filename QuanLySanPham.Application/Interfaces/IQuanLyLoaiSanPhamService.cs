@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuanLySanPham.Application.Interfaces
 {
-    public interface IQuanLyLoaiSanPham
+    public interface IQuanLyLoaiSanPhamService
     {
         public class ApiResult<T>
         {
@@ -16,21 +16,21 @@ namespace QuanLySanPham.Application.Interfaces
         }
 
         // Lấy danh sách tất cả loại sản phẩm
-        Task<ApiResult<List<LoaiSanPhamViewModel>>> GetAllAsync();
+        Task<ApiResult<List<LoaiSanPhamViewModel>>> DanhSachSP();
 
         // Lấy loại sản phẩm theo ID
-        Task<ApiResult<LoaiSanPhamViewModel>> GetByIdAsync(Guid id);
+        Task<ApiResult<LoaiSanPhamViewModel>> LayLoaiSPID(Guid id);
 
         // Thêm loại sản phẩm mới
-        Task<ApiResult<bool>> CreateAsync(LoaiSanPhamRequest request);
+        Task<ApiResult<bool>> CreateLSP(LoaiSanPhamRequest request);
 
         // Cập nhật loại sản phẩm
-        Task<ApiResult<bool>> UpdateAsync(Guid id, LoaiSanPhamRequest request);
+        Task<ApiResult<bool>> UpdateLSP(Guid id, LoaiSanPhamRequest request);
 
         // Xóa loại sản phẩm theo ID
-        Task<ApiResult<bool>> DeleteAsync(Guid id);
+        Task<ApiResult<bool>> DeleteLSP(Guid id);
 
         // Tìm kiếm loại sản phẩm theo từ khóa và phân trang
-        Task<ApiResult<PageViewModel<LoaiSanPhamViewModel>>> GetAllPagingAsync(string keyword, int pageIndex, int pageSize);
+        Task<ApiResult<PageViewModel<LoaiSanPhamViewModel>>> TimKiem(string keyword, int pageIndex, int pageSize);
     }
 }

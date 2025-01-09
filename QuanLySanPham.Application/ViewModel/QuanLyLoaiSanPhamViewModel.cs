@@ -18,5 +18,7 @@ namespace QuanLySanPham.Application.ViewModel
 
         public DateTime? NgayCapNhat { get; set; }
         public object TenLoaiSanPham { get; set; }
+
+        
     }
 }
